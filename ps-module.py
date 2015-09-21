@@ -1,4 +1,5 @@
-import os, sys, urllib.request
+import os, sys, urllib.request, re
+from string import whitespace
 
 moduleName = input('Module name: ')
 moduleCategory = input('Module Category (others): ').replace(' ', '_')
@@ -14,9 +15,24 @@ moduleDescription = input('Module Description: ')
 companyName = 'Catalog Solutions';
 error = False
 
+def ucwords(source):
+    uc_source = ''
+    for idx, a_char in enumerate(source):
+        if a_char in whitespace or not a_char.isalpha():  # whitespace or not alpha is fine to add
+            uc_source += a_char
+        elif a_char.isalpha() and (not idx or source[idx - 1] in whitespace):  # we know we're alpha, and either the first character, or the one prev is whitespace
+            uc_source += a_char.upper()
+        else:  # whatever else we can be, let's add!
+            uc_source += a_char
+    return uc_source
+
 def createClassName():
     return companyName.replace(' ', '') + \
     moduleName.replace(' ', '').capitalize()
+
+def rootDirName():
+    return companyName.replace(' ', '') + \
+    ucwords(moduleName).replace(' ', '')
 
 def technicalName():
     return moduleName.replace(' ', '')
@@ -28,10 +44,10 @@ moduleFiles = [technicalName() + '.php', 'config.xml']
 imgURLs = ['http://catalogsolutions.com/logo.png', 'http://catalogsolutions.com/logo.gif']
 
 moduleDirectories = [
-    technicalName(), technicalName() + '/views/templates/admin', technicalName() + '/views/templates/front', 
-    technicalName() + '/views/templates/hook', technicalName() + '/views/css', technicalName() + '/views/js', 
-    technicalName() + '/views/img', technicalName() + '/controllers', technicalName() + '/override', 
-    technicalName() + '/themes/[theme_name]/modules', technicalName() + '/upgrade'
+    rootDirName(), rootDirName() + '/views/templates/admin', rootDirName() + '/views/templates/front', 
+    rootDirName() + '/views/templates/hook', rootDirName() + '/views/css', rootDirName() + '/views/js', 
+    rootDirName() + '/views/img', rootDirName() + '/controllers', rootDirName() + '/override', 
+    rootDirName() + '/themes/[theme_name]/modules', rootDirName() + '/upgrade'
 ]
 
 # Make a directory
@@ -149,14 +165,14 @@ for moduleDirectory in moduleDirectories:
 for file in moduleFiles:
     print(file)
     if file == 'config.xml':
-        createXMLConfig(technicalName() + '/' + file)
+        createXMLConfig(rootDirName() + '/' + file)
     else:
-        createFile(technicalName() + '/' + file)
+        createFile(rootDirName() + '/' + file)
 
 # Download logo images
 for imgURL in imgURLs:
     file_name = imgURL.split('/')[-1].split('#')[0].split('?')[0]
-    with urllib.request.urlopen(imgURL) as response, open(os.path.join(technicalName(), file_name), 'wb') as out_file:
+    with urllib.request.urlopen(imgURL) as response, open(os.path.join(rootDirName(), file_name), 'wb') as out_file:
         out_file.write(response.read())
 
 if error:
