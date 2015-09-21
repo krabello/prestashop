@@ -2,7 +2,9 @@ import os, sys, urllib.request, re
 from string import whitespace
 
 moduleName = input('Module name: ')
+
 moduleCategory = input('Module Category (others): ').replace(' ', '_')
+
 if moduleCategory == '':
     moduleCategory = 'others'
 
@@ -27,14 +29,13 @@ def ucwords(source):
     return uc_source
 
 def createClassName():
-    return rootDirName()
+    return ucwords(moduleName).replace(' ', '')
 
 def rootDirName():
-    return companyName.replace(' ', '') + \
-    ucwords(moduleName).replace(' ', '')
+    return moduleName.lower().replace(' ', '')
 
 def technicalName():
-    return moduleName.replace(' ', '')
+    return rootDirName()
 
 def publicName():
     return moduleName.capitalize()
@@ -128,8 +129,18 @@ def createFile(file):
             f.write('        parent::__construct();\n')
             f.write('     \n')
             f.write('    }\n')
+            f.write('     \n')
+            f.write('    /**\n')
+            f.write('    * Configuration Settings\n')
+            f.write('    * \n')
+            f.write('    * @return string\n')
+            f.write('    */\n')
+            f.write('    public function getContent()\n')
+            f.write('    {\n')
+            f.write('        return \'Add config here if needed otherwise remove "getContent" method located in \' . __FILE__ ;')
+            f.write('    }\n')
             f.write('}\n')
-        f.close()
+            f.close()
     except OSError:
         error = True
         raise error
