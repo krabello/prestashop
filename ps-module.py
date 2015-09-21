@@ -137,7 +137,7 @@ def createFile(file):
             f.write('    */\n')
             f.write('    public function getContent()\n')
             f.write('    {\n')
-            f.write('        return \'Add config here if needed otherwise remove "getContent" method located in \' . __FILE__ ;')
+            f.write('        return \'Add config here if needed otherwise remove "getContent" method located in \' . __FILE__ ;\n')
             f.write('    }\n')
             f.write('}\n')
             f.close()
