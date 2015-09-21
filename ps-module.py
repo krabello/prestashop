@@ -18,17 +18,16 @@ error = False
 def ucwords(source):
     uc_source = ''
     for idx, a_char in enumerate(source):
-        if a_char in whitespace or not a_char.isalpha():  # whitespace or not alpha is fine to add
+        if a_char in whitespace or not a_char.isalpha():
             uc_source += a_char
-        elif a_char.isalpha() and (not idx or source[idx - 1] in whitespace):  # we know we're alpha, and either the first character, or the one prev is whitespace
+        elif a_char.isalpha() and (not idx or source[idx - 1] in whitespace):
             uc_source += a_char.upper()
-        else:  # whatever else we can be, let's add!
+        else:
             uc_source += a_char
     return uc_source
 
 def createClassName():
-    return companyName.replace(' ', '') + \
-    moduleName.replace(' ', '').capitalize()
+    return rootDirName()
 
 def rootDirName():
     return companyName.replace(' ', '') + \
@@ -167,7 +166,7 @@ for file in moduleFiles:
     if file == 'config.xml':
         createXMLConfig(rootDirName() + '/' + file)
     else:
-        createFile(rootDirName() + '/' + file)
+        createFile(rootDirName() + '/' + rootDirName()+'.php')
 
 # Download logo images
 for imgURL in imgURLs:
