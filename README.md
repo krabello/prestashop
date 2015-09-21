@@ -1,6 +1,6 @@
 Prestashop Module Scaffolder
 ============================
-Creates a basic scaffold of a Prestashop Module
+Creates a basic scaffold of a Prestashop Module. Place file in modules directory and run from command line.
 
 
 Requirements
