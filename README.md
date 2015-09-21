@@ -5,7 +5,7 @@ Creates a basic scaffold of a Prestashop Module
 
 Requirements
 ------------
-- [![Python 3](https://www.python.org/downloads/)
+- [Python 3](https://www.python.org/downloads/)
 
 Usage
 ------------
