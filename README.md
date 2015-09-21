@@ -9,8 +9,8 @@ Requirements
 
 Usage
 ------------
-$ python ps-module.py
-  Module name: 
-  Module Category (others):
-  Module Version (1.0.0):
-  Module Description: 
+```$ python ps-module.py```
+  ```Module name: ```
+  ```Module Category (others): ```
+  ```Module Version (1.0.0): ```
+  ```Module Description: ```
